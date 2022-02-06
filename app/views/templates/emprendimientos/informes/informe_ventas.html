@@ -1,0 +1,270 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <style>
+        img{
+            width: 100%;
+        }
+        .container{
+            height: auto;
+        }
+    </style>{% endblock %}
+
+{% block content %}
+
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color">
+    <p class="navbar-brand" style="cursor: default;" href="{{ url_for('views.emprendimientos_views.emprendimiento_home', id=emprendimiento.id_) }}">{{emprendimiento.nombre}}</p>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.productos_views.productos') }}">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.insumos_views.insumos') }}">Insumos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.proveedores_views.proveedores') }}">Proveedores y Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.ventas_views.crear_ventas') }}">Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.clientes_views.clientes') }}">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('views.costos_views.costos') }}">Costos</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('views.informes_views.informes') }}">Informes y Estadísticas</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Mi cuenta <i class="fas fa-user"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+            <a class="dropdown-item" href="{{ url_for('views.usuarios_views.editar') }}">Mi usuario</a>
+            <a class="dropdown-item" href="{{ url_for('views.emprendimientos_views.emprendimientos') }}">Mis emprendimientos</a>
+            <a class="dropdown-item" href="{{ url_for('views.usuarios_views.login') }}">Cerrar sesión</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <h2>Informe de ventas</h2>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <h4>{{fecha_inicio}} a {{fecha_fin}}</h4>
+    </div>
+    
+    <br>
+
+    <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global"
+            aria-selected="true">Global</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="periodo-tab" data-toggle="tab" href="#periodo" role="tab" aria-controls="periodo"
+            aria-selected="false">Ventas según períodos de agregación</a>
+        </li>
+    </ul>
+
+      <br>
+
+      <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-pane fade show active" id="global" role="tabpanel" aria-labelledby="global-tab">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{global_.total_ventas}}</h4>
+                            <p class="card-text">Ventas totales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ "${:,.0f}".format(global_.ganancia_bruta) }}</h4>
+                            <p class="card-text">Ganancia bruta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ "${:,.0f}".format(global_.ganancia_neta) }}</h4>
+                            <p class="card-text">Ganancia neta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="row">
+                    <h4>Tendencia global</h4>
+                </div>
+                <div class="row">
+                    <img src='/static/images/informes/ventas_trend.png' alt="Chart" height="300" style="width: 80%;">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="row">
+                    <h4>Pronóstico a 2 meses</h4>
+                </div>
+                <div class="row">
+                    <img src='/static/images/informes/ventas_forecast.png' alt="Chart" height="300" style="width: 80%;">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="tab-pane fade" id="periodo" role="tabpanel" aria-labelledby="periodo-tab">
+            
+            <!-- DAILY -->
+            <div class="row">
+                <div class="col-5">
+                    <h3>Por día</h3>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ "${:,.0f}".format(daily_monto.mean) }}</h4>
+                                    <p class="card-text">Monto promedio de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(daily_monto.min) }}</h4>
+                                    <p class="card-text">Menor monto de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(daily_monto.max) }}</h4>
+                                    <p class="card-text">Mayor monto de ventas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{daily_ventas.mean}}</h4>
+                                    <p class="card-text">Promedio de clientes</p>
+                                    <h4 class="card-title">{{daily_ventas.min}}</h4>
+                                    <p class="card-text">Menor cantidad de clientes</p>
+                                    <h4 class="card-title">{{daily_ventas.max}}</h4>
+                                    <p class="card-text">Mayor cantidad de clientes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 d-flex align-items-center">
+                    <img src='/static/images/informes/ventas_daily.png' alt="Chart">
+                </div>
+            </div>
+            
+            <br>
+            <hr>
+            <br>
+
+            <!-- WEEKLY -->
+            <div class="row">
+                <div class="col-5">
+                    <h3>Por semana</h3>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ "${:,.0f}".format(weekly_monto.mean)}}</h4>
+                                    <p class="card-text">Promedio de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(weekly_monto.min)}}</h4>
+                                    <p class="card-text">Menor monto de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(weekly_monto.max)}}</h4>
+                                    <p class="card-text">Mayor monto de ventas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{weekly_ventas.mean}}</h4>
+                                    <p class="card-text">Promedio de clientes</p>
+                                    <h4 class="card-title">{{weekly_ventas.min}}</h4>
+                                    <p class="card-text">Menor cantidad de clientes</p>
+                                    <h4 class="card-title">{{weekly_ventas.max}}</h4>
+                                    <p class="card-text">Mayor cantidad de clientes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 d-flex align-items-center">
+                    <img src='/static/images/informes/ventas_weekly.png' alt="Chart">
+                </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            
+            <!-- MONTHLY -->
+            <div class="row">
+                <div class="col-5">
+                    <h3>Por mes</h3>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ "${:,.0f}".format(monthly_monto.mean) }}</h4>
+                                    <p class="card-text">Promedio de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(monthly_monto.min) }}</h4>
+                                    <p class="card-text">Menor cantidad de ventas</p>
+                                    <h4 class="card-title">{{ "${:,.0f}".format(monthly_monto.max) }}</h4>
+                                    <p class="card-text">Mayor cantidad de ventas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{monthly_ventas.mean}}</h4>
+                                    <p class="card-text">Promedio de clientes</p>
+                                    <h4 class="card-title">{{monthly_ventas.min}}</h4>
+                                    <p class="card-text">Menor cantidad de clientes</p>
+                                    <h4 class="card-title">{{monthly_ventas.max}}</h4>
+                                    <p class="card-text">Mayor cantidad de clientes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 d-flex align-items-center">
+                    <img src='/static/images/informes/ventas_monthly.png' alt="Chart">
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+                
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/informes.js') }}"></script>
+{% endblock %}

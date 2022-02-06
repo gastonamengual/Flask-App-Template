@@ -1,0 +1,147 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color">
+  <p class="navbar-brand" style="cursor: default;" href="{{ url_for('views.emprendimientos_views.emprendimiento_home', id=emprendimiento.id_) }}">{{emprendimiento.nombre}}</p> 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.productos_views.productos') }}">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.insumos_views.insumos') }}">Insumos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.proveedores_views.proveedores') }}">Proveedores y Pedidos</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('views.ventas_views.crear_ventas') }}">Ventas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.clientes_views.clientes') }}">Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.costos_views.costos') }}">Costos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.informes_views.informes') }}">Informes y Estadísticas</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Mi cuenta <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.editar') }}">Mi usuario</a>
+          <a class="dropdown-item" href="{{ url_for('views.emprendimientos_views.emprendimientos') }}">Mis emprendimientos</a>
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.login') }}">Cerrar sesión</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container justify-content-start">
+
+  <div class="row w-75 justify-content-between">
+    <div class="md-form">
+      <label class="form-label">DNI del Cliente</label>
+      <input class="form-input" type="text" name="dni_cliente" list="cliente-list" required>
+      <datalist id="cliente-list">
+        {% for cliente in clientes %}
+        <option value="{{cliente.dni}}">{{cliente.nombre}}</option>
+        {% endfor %}
+      </datalist>  
+    </div>
+
+    <div>
+      <p class="btn btn-primary .btn-sm" id="add_producto"><i class="fas fa-plus"></i></p>
+    </div>
+  </div>
+
+  <div id="agregar-linea-storage">
+    <select>
+        <option value="" selected disabled>Elegir producto</option>
+        {% for producto, tiene_stock in productos_stock %}
+        <option value="{{producto.id_}}" {% if tiene_stock == 'si' %} disabled {% endif %}>{{producto.nombre}}</option>
+        {% endfor %}
+    </select>
+  </div>
+    
+  <table class="table table-hover w-100" id="crearVentaTable">
+    <thead class="black white-text">
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Subtotal</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody id="agregar-linea-form"></tbody>
+  </table>
+
+  <div class="row">
+    <h4 id="total">Total: $0</h4>
+  </div>
+  
+  <div class="row">
+      <button class="form-submit btn btn-primary .btn-sm" id="finalizar-venta" type="submit">Finalizar venta</button>
+  </div>
+
+  <a class="btn btn-primary .btn-sm" href="{{ url_for('views.ventas_views.lista_ventas') }}">Lista de ventas</a>  
+
+</div>
+
+<div class="modal fade" id="modal-error" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-alert" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Error</h3>
+        <h4 id='modal-alert-text'></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/ventas.js') }}"></script>
+{% endblock %}

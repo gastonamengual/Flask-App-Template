@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row w-100 mt-4 d-flex justify-content-start">
+    <a href="{{ url_for('views.emprendimientos_views.emprendimientos') }}"><i class="fas fa-chevron-left"></i></a>
+  </div>
+
+  <form class="text-center p-5 h-100 d-flex justify-content-center align-items-center flex-column" style="width: 90%;" method="POST" action="{{ url_for('api.usuarios_api.editar') }}" enctype="multipart/form-data">
+    
+    <p style="font-size: 2rem;">Mi Usuario</p>
+
+    <input type="hidden" name="id_"  value="{{usuario.id_}}"/>
+  
+    <div class="md-form" style="width: 35%;">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" type="text" name="nombre" value="{{usuario.nombre}}" required />
+    </div>
+    
+    <div class="md-form" style="width: 35%;">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="text" name="email" value="{{usuario.email}}" required />
+    </div>
+    
+    <div style="display: none;">
+      <input class="form-control" type="password" name="password" value="{{usuario.password}}" required />
+    </div>
+    
+    <button class="btn btn-success btn-block my-4 w-25 h-20" type="submit">Guardar Cambios</button>
+    <a class="btn btn-info btn-block my-4 w-25 h-20" href="{{ url_for('views.usuarios_views.reset_password', token=usuario.id_) }}">Cambiar contraseña</a>
+    <a class="btn btn-danger btn-block my-4 w-25 h-20" id="borrar-usuario">Borrar usuario</a>
+    
+  </form>
+  
+</div>
+
+<div class="modal fade" id="modal-register-error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="flashes">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+          </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRM DELETE -->
+<div class="modal fade" id="modal-borrar" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="flashes">
+        <p>¿Estás seguro que querés borrar el usuario? Hasta dentro de 10 días podrás iniciar sesión para reactivar la cuenta. Pasado ese tiempo, se borrarán todos los datos del usuario y de emprendimientos.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <form class="main-form" method="POST" action="{{ url_for('api.usuarios_api.borrar') }}" enctype="multipart/form-data">
+          <input type="hidden" name="id_"  value="{{usuario.id_}}"/>
+          <button type="submit" class="form-submit btn btn-primary">Borrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/usuarios.js') }}"></script>
+{% endblock %}

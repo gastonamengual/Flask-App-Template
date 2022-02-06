@@ -1,0 +1,234 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color">
+  <p class="navbar-brand" style="cursor: default;" href="{{ url_for('views.emprendimientos_views.emprendimiento_home', id=emprendimiento.id_) }}">{{emprendimiento.nombre}}</p>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.productos_views.productos') }}">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.insumos_views.insumos') }}">Insumos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.proveedores_views.proveedores') }}">Proveedores y Pedidos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.ventas_views.crear_ventas') }}">Ventas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.clientes_views.clientes') }}">Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('views.costos_views.costos') }}">Costos</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('views.informes_views.informes') }}">Informes y Estadísticas</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Mi cuenta <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.editar') }}">Mi usuario</a>
+          <a class="dropdown-item" href="{{ url_for('views.emprendimientos_views.emprendimientos') }}">Mis emprendimientos</a>
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.login') }}">Cerrar sesión</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container justify-content-center">
+  <div class="row w-100 justify-content-center align-items-center flex-row" style="height: 60%;">
+
+    <!-- VENTAS -->
+    <div class="col-3 h-100">
+      <div class="card h-100 text-white bg-color-ventas w-100 mb-2">
+        <form class="main-form h-100 d-flex justify-content-center align-items-center flex-column" method="POST" action="{{ url_for('views.informe_ventas.informe_ventas') }}" enctype="multipart/form-data">
+            <div class="row w-100 w-100">
+              <h4 class="font-weight-bold">Informe de ventas</h4>
+            </div>
+            
+            <div class="row w-100 w-100">
+              <div class="md-form col-5">
+                  <label class="form-label text-white active">Desde</label>
+                  <input class="form-control text-white" type="date" name="fecha_inicio" value="2021-10-01" onkeydown="return false" required />
+              </div>
+              <div class="md-form col-5">
+                  <label class="form-label text-white active">Hasta</label>
+                  <input class="form-control text-white" type="date" name="fecha_fin" value="2022-01-01" onkeydown="return false" required />    
+              </div>
+            </div>
+            
+            <div class="row w-100 w-100">
+              <button class="btn btn-primary w-75 .btn-sm" name="action" value="ventas">Realizar informe</button>
+            </div>
+          
+          </form>
+        </div>
+    </div>
+
+    <!-- PRODUCTOS -->
+    <div class="col-3 h-100">
+      <div class="card h-100 text-white bg-color-productos w-100 mb-2">
+        <form class="main-form h-100 d-flex justify-content-center align-items-center flex-column" method="POST" action="{{ url_for('views.informe_productos.informe_productos_dispatcher') }}" enctype="multipart/form-data">
+          
+          <div class="row w-100">
+            <h4 class="font-weight-bold">Informe de producto</h4>
+          </div>          
+            
+          <div class="row w-100">
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Desde</label>
+                <input class="form-control text-white" type="date" name="fecha_inicio" value="2021-10-01" onkeydown="return false" required />
+            </div>
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Hasta</label>
+                <input class="form-control text-white" type="date" name="fecha_fin" value="2022-01-01" onkeydown="return false" required />    
+            </div>
+          </div>
+  
+          <div class="row w-100">
+            <button class="btn btn-primary w-75 .btn-sm" name="action" value="global">Informe global</button>
+          </div>
+
+          <br>
+          <br>
+          
+          <div class="row w-100">
+            <select class="w-75 browser-default custom-select" name="producto_id" value="-1">
+                <option selected="selected" value="-1" disabled> Elegir producto</option>
+                {% for producto in productos %}
+                <option value="{{producto.id_}}">{{producto.nombre}}</option>
+                {% endfor %}
+            </select>
+          </div>
+  
+          <div class="row w-100">
+            <button class="btn btn-primary w-75 .btn-sm" name="action" value="producto_ingresado">Informe individual</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- CLIENTES -->
+    <div class="col-3 h-100">
+      <div class="card h-100 text-white bg-color-clientes w-100 mb-2">
+        <form class="main-form h-100 d-flex justify-content-center align-items-center flex-column" method="POST" action="{{ url_for('views.informe_clientes.informe_clientes_dispatcher') }}" enctype="multipart/form-data">
+          <div class="row w-100">
+            <h4 class="font-weight-bold">Informe de clientes</h4>
+          </div>
+            
+          <div class="row w-100">
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Desde</label>
+                <input class="form-control text-white" type="date" name="fecha_inicio" value="2021-10-01" onkeydown="return false" required />
+            </div>
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Hasta</label>
+                <input class="form-control text-white" type="date" name="fecha_fin" value="2022-01-01" onkeydown="return false" required />    
+            </div>
+          </div>
+  
+          <div class="row w-100">
+            <button class="btn btn-primary w-75 .btn-sm" name="action" value="global">Informe global</button>
+          </div>
+
+          <br>
+          <br>
+          
+          <div class="row w-100">
+            <select class="w-75 browser-default custom-select" name="cliente_id" value="-1">
+                <option selected="selected" value="-1" disabled> Elegir cliente</option>
+                {% for cliente in clientes %}
+                <option value="{{cliente.id_}}">{{cliente.nombre}}</option>
+                {% endfor %}
+            </select>
+          </div>
+
+          <div class="row w-100">
+            <button class="btn btn-primary w-75 .btn-sm" name="action" value="cliente_ingresado">Informe individual</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- PROVEEDORES -->
+    <div class="col-3 h-100">
+      <div class="card h-100 text-white bg-color-proveedores w-100 mb-2">
+       <form class="main-form h-100 d-flex justify-content-center align-items-center flex-column" method="POST" action="{{ url_for('views.informe_proveedores.informe_proveedores') }}" enctype="multipart/form-data">
+          <div class="row w-100">
+            <h4 class="font-weight-bold">Informe de proveedor</h4>
+          </div>
+          
+          <div class="row w-100">
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Desde</label>
+                <input class="form-control text-white" type="date" name="fecha_inicio" value="2021-10-01" onkeydown="return false" required />
+            </div>
+            <div class="md-form col-5">
+                <label class="form-label text-white active">Hasta</label>
+                <input class="form-control text-white" type="date" name="fecha_fin" value="2022-01-01" onkeydown="return false" required />    
+            </div>
+          </div>
+
+          <div class="md-form row w-100">
+            <select class="w-75 browser-default custom-select" name="proveedor_id" required>
+                <option disabled selected value> Elegir proveedor</option>
+                {% for proveedor in proveedores %}
+                <option value="{{proveedor.id_}}">{{proveedor.nombre}}</option>
+                {% endfor %}
+            </select>
+          </div> 
+
+          <div class="row w-100">
+            <button class="btn btn-primary w-75 .btn-sm" name="action">Realizar informe</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ERROR -->
+<div class="modal fade" id="modal-error" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="flashes">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+          </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/informes.js') }}"></script>
+{% endblock %}

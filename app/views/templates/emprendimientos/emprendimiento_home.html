@@ -1,0 +1,198 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color">
+  <a class="navbar-brand" href="#">{{emprendimiento.nombre}}</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Mi cuenta <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default"
+          aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.editar') }}">Mi usuario</a>
+          <a class="dropdown-item" href="{{ url_for('views.emprendimientos_views.emprendimientos') }}">Mis emprendimientos</a>
+          <a class="dropdown-item" id="editar-emprendimiento{{emprendimiento.id_}}">Editar {{emprendimiento.nombre}}</a>
+          <a class="dropdown-item" id="borrar-emprendimiento{{emprendimiento.id_}}">Borrar {{emprendimiento.nombre}}</a>
+          <a class="dropdown-item" href="{{ url_for('views.usuarios_views.login') }}">Cerrar sesión</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Container -->
+<div class="container">
+  
+  <div class="row d-flex justify-content-between align-items-center flex-column" style="height: 90%; width: 40%;">
+    <div class="row w-100">
+      <div class="card w-100 bg-color-productos">
+        <a class="text-center" href="{{ url_for('views.productos_views.productos') }}">
+          <div class="card-body">
+            <h3 class="card-title">Productos</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <div class="row w-100">
+      <div class="card w-100 bg-color-insumos">
+        <a class="text-center" href="{{ url_for('views.insumos_views.insumos') }}">
+          <div class="card-body">
+            <h3 class="card-title">Insumos</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="row w-100">
+      <div class="card w-100 bg-color-proveedores">
+        <a class="text-center" href="{{ url_for('views.proveedores_views.proveedores') }}">
+          <div class="card-body">
+            <h3 class="card-title">Proveedores y Pedidos</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="row w-100">
+      <div class="card w-100 bg-color-ventas">
+        <a class="text-center" href="{{ url_for('views.ventas_views.crear_ventas') }}">
+        <div class="card-body">
+          <h3 class="card-title">Ventas</h3>
+        </div>
+      </a>
+      </div>
+    </div>
+    
+    <div class="row w-100">
+      <div class="card w-100 bg-color-clientes">
+        <a class="text-center" href="{{ url_for('views.clientes_views.clientes') }}">
+        <div class="card-body">
+          <h3 class="card-title">Clientes</h3>
+        </div>
+      </a>
+      </div>
+    </div>
+
+    <div class="row w-100">
+      <div class="card w-100 bg-color-informes">
+        <a class="text-center" href="{{ url_for('views.informes_views.informes') }}">
+        <div class="card-body">
+          <h3 class="card-title">Informes y Estadísticas</h3>
+        </div>
+      </a>
+      </div>
+    </div>
+
+    <div class="row w-100">
+      <div class="card w-100 bg-color-costos">
+        <a class="text-center" href="{{ url_for('views.costos_views.costos') }}">
+        <div class="card-body">
+          <h3 class="card-title">Costos Fijos</h3>
+        </div>
+      </a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- MODAL ALERT -->
+<div class="modal fade" id="modal-alert" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" id="flashes">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+            {% for message in messages %}
+              <p>{{ message }}</p>
+          {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+      </div>
+      </div>
+  </div>
+</div>
+
+<!-- MODAL FORM -->
+<div class="modal fade" id="modal-editar-form" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="flashes">
+        <form class="main-form" method="POST" action="{{ url_for('api.emprendimientos_api.emprendimiento_dispatcher') }}" enctype="multipart/form-data">     
+          <input  type="hidden" name="_method"  value="PUT"/>
+          <input  type="hidden" name="id_"/>
+      
+          <div class="row">
+              <div class="md-form col-6">
+                  <label class="form-label label-active">Nombre emprendimiento</label>
+                  <input class="form-control" type="text" name="nombre" required />
+              </div>
+          </div>
+          <div class="row">
+              <div class="md-form col-6">
+                  <label class="form-label label-active">Margen de ganancia</label>
+                  <input class="form-control" type="number" step="0.01" name="margen_ganancia" required />
+              </div>
+          </div>
+      
+          <div class="row">
+              <button class="form-submit btn btn-primary .btn-sm" id="finalizar" type="submit">Editar emprendimiento</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRM DELETE -->
+<div class="modal fade" id="modal-borrar" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="flashes">
+        <p>¿Estás seguro que querés borrar el emprendimiento?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <form class="main-form" method="POST" action="{{ url_for('api.emprendimientos_api.emprendimiento_borrar') }}" enctype="multipart/form-data">
+          <input  type="hidden" name="_method" value="DELETE"/>
+          <input  type="hidden" name="delete_id" />
+          <button type="submit" class="form-submit btn btn-primary">Borrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/emprendimientos.js') }}"></script>
+{% endblock %}
