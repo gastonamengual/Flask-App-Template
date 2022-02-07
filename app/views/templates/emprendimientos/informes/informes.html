@@ -8,7 +8,7 @@
 
 <!--Navbar -->
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color">
-  <p class="navbar-brand" style="cursor: default;" href="{{ url_for('views.emprendimientos_views.emprendimiento_home', id=emprendimiento.id_) }}">{{emprendimiento.nombre}}</p>
+  <a class="navbar-brand" href="{{ url_for('views.emprendimientos_views.emprendimiento_home', id=emprendimiento.id_) }}">{{emprendimiento.nombre}}</a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">

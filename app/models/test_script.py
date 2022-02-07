@@ -134,14 +134,14 @@ def create_test_database():
                 precios_producto_db.create(precio, usuario_id, emprendimiento_id, producto.id_)
 
         ### Proveedores
-        proveedor0 = Proveedor(nombre="E&M")
-        proveedor1 = Proveedor(nombre="Lan Lan")
-        proveedor2 = Proveedor(nombre="Bloom")
-        proveedor3 = Proveedor(nombre="NailsByLu")
-        proveedor4 = Proveedor(nombre="EgoNails")
-        proveedor5 = Proveedor(nombre="Manima SRL")
-        proveedor6 = Proveedor(nombre="Semia Insumos")
-        proveedor7 = Proveedor(nombre="DeUñas Tienda")
+        proveedor0 = Proveedor(nombre="E&M", telefono="3414277845")
+        proveedor1 = Proveedor(nombre="Lan Lan", telefono="3413586904")
+        proveedor2 = Proveedor(nombre="Bloom", telefono="3415222023")
+        proveedor3 = Proveedor(nombre="NailsByLu", telefono="3414590549")
+        proveedor4 = Proveedor(nombre="EgoNails", telefono="3416326994")
+        proveedor5 = Proveedor(nombre="Manima SRL", telefono="3415355901")
+        proveedor6 = Proveedor(nombre="Semia Insumos", telefono="3414451211")
+        proveedor7 = Proveedor(nombre="DeUñas Tienda", telefono="3414918455")
 
         proveedores = [proveedor0, proveedor1, proveedor2, proveedor3, proveedor4, proveedor5, proveedor6, proveedor7]
         
@@ -149,51 +149,51 @@ def create_test_database():
             proveedores_db.create(proveedor, usuario_id, emprendimiento_id)
 
         ### Clientes
-        clientes = [Cliente(dni="30442203", nombre='Agostina'),
-                    Cliente(dni="22778223", nombre='Agustina'),
-                    Cliente(dni="42621496", nombre='Angie'),
-                    Cliente(dni="41624516", nombre='Brenda'),
-                    Cliente(dni="30271815", nombre='Camila'),
-                    Cliente(dni="35138846", nombre='Candela F'),
-                    Cliente(dni="30439345", nombre='Candela T'),
-                    Cliente(dni="38372625", nombre='Carolina'),
-                    Cliente(dni="32219767", nombre='Catalina'),
-                    Cliente(dni="41758888", nombre='Celeste'),
-                    Cliente(dni="25921968", nombre='Clara'),
-                    Cliente(dni="33519135", nombre='Claudia'),
-                    Cliente(dni="21395149", nombre='Cristian'),
-                    Cliente(dni="35274198", nombre='Daiana'),
-                    Cliente(dni="24323076", nombre='Debora'),
-                    Cliente(dni="25863042", nombre='Eliana'),
-                    Cliente(dni="29873092", nombre='Elisa'),
-                    Cliente(dni="39872027", nombre='Fabiola'),
-                    Cliente(dni="40917395", nombre='Florencia'),
-                    Cliente(dni="30987292", nombre='Felicitas'),
-                    Cliente(dni="41011409", nombre='Graciela'),
-                    Cliente(dni="28308716", nombre='Isabella'),
-                    Cliente(dni="37293092", nombre='Jesica'),
-                    Cliente(dni="37155787", nombre='Karen'),
-                    Cliente(dni="38720982", nombre='Leonila'),
-                    Cliente(dni="39013475", nombre='Laura Callejas'),
-                    Cliente(dni="24585866", nombre='Laura Consiglio'),
-                    Cliente(dni="38495049", nombre='Magalí'),
-                    Cliente(dni="37826585", nombre='Malena'),
-                    Cliente(dni="35652898", nombre='Manuela'),
-                    Cliente(dni="42416251", nombre='Micaela'),
-                    Cliente(dni="22990677", nombre='Milagros'),
-                    Cliente(dni="26044688", nombre='Nahir'),
-                    Cliente(dni="25047621", nombre='Natalia F'),
-                    Cliente(dni="37027641", nombre='Natalia'),
-                    Cliente(dni="28386573", nombre='Olivia'),
-                    Cliente(dni="37264093", nombre='Pamela'),
-                    Cliente(dni="41582166", nombre='Paula'),
-                    Cliente(dni="25006107", nombre='Rocio'),
-                    Cliente(dni="37527495", nombre='Rocío'),
-                    Cliente(dni="26141764", nombre='Silvina'),
-                    Cliente(dni="30099748", nombre='Solana'),
-                    Cliente(dni="22298393", nombre='Valentina'),
-                    Cliente(dni="32248327", nombre='Vanessa'),
-                    Cliente(dni="34909827", nombre='Yamila'),]
+        clientes = [Cliente(dni="30442203", nombre='Agostina', telefono="3416786012"),
+                    Cliente(dni="22778223", nombre='Agustina', telefono="3415940017"),
+                    Cliente(dni="42621496", nombre='Angie', telefono="3414977604"),
+                    Cliente(dni="41624516", nombre='Brenda', telefono="3416916709"),
+                    Cliente(dni="30271815", nombre='Camila', telefono="3413196006"),
+                    Cliente(dni="35138846", nombre='Candela F', telefono="3414585789"),
+                    Cliente(dni="30439345", nombre='Candela T', telefono="3413752447"),
+                    Cliente(dni="38372625", nombre='Carolina', telefono="3414470363"),
+                    Cliente(dni="32219767", nombre='Catalina', telefono="3416962727"),
+                    Cliente(dni="41758888", nombre='Celeste', telefono="3414277845"),
+                    Cliente(dni="25921968", nombre='Clara', telefono="3413586904"),
+                    Cliente(dni="33519135", nombre='Claudia', telefono="3415222023"),
+                    Cliente(dni="21395149", nombre='Cristian', telefono="3414590549"),
+                    Cliente(dni="35274198", nombre='Daiana', telefono="3416326994"),
+                    Cliente(dni="24323076", nombre='Debora', telefono="3415355901"),
+                    Cliente(dni="25863042", nombre='Eliana', telefono="3414451211"),
+                    Cliente(dni="29873092", nombre='Elisa', telefono="3414918455"),
+                    Cliente(dni="39872027", nombre='Fabiola', telefono="3414301636"),
+                    Cliente(dni="40917395", nombre='Florencia', telefono="3414418944"),
+                    Cliente(dni="30987292", nombre='Felicitas', telefono="3413860853"),
+                    Cliente(dni="41011409", nombre='Graciela', telefono="3415813503"),
+                    Cliente(dni="28308716", nombre='Isabella', telefono="3414722099"),
+                    Cliente(dni="37293092", nombre='Jesica', telefono="3413064700"),
+                    Cliente(dni="37155787", nombre='Karen', telefono="3415409309"),
+                    Cliente(dni="38720982", nombre='Leonila', telefono="3413212614"),
+                    Cliente(dni="39013475", nombre='Laura Callejas', telefono="3416874495"),
+                    Cliente(dni="24585866", nombre='Laura Consiglio', telefono="3413338718"),
+                    Cliente(dni="38495049", nombre='Magalí', telefono="3413803768"),
+                    Cliente(dni="37826585", nombre='Malena', telefono="3413929891"),
+                    Cliente(dni="35652898", nombre='Manuela', telefono="3414946162"),
+                    Cliente(dni="42416251", nombre='Micaela', telefono="3415909096"),
+                    Cliente(dni="22990677", nombre='Milagros', telefono="3415792629"),
+                    Cliente(dni="26044688", nombre='Nahir', telefono="3416409576"),
+                    Cliente(dni="25047621", nombre='Natalia F', telefono="3414724930"),
+                    Cliente(dni="37027641", nombre='Natalia', telefono="3415574026"),
+                    Cliente(dni="28386573", nombre='Olivia', telefono="3415367389"),
+                    Cliente(dni="37264093", nombre='Pamela', telefono="3413961108"),
+                    Cliente(dni="41582166", nombre='Paula', telefono="3415751130"),
+                    Cliente(dni="25006107", nombre='Rocio', telefono="3416453330"),
+                    Cliente(dni="37527495", nombre='Rocío', telefono="3413583757"),
+                    Cliente(dni="26141764", nombre='Silvina', telefono="3416309018"),
+                    Cliente(dni="30099748", nombre='Solana', telefono="3413171618"),
+                    Cliente(dni="22298393", nombre='Valentina', telefono="3413101095"),
+                    Cliente(dni="32248327", nombre='Vanessa', telefono="3414546929"),
+                    Cliente(dni="34909827", nombre='Yamila', telefono="3415723582"),]
 
         for cliente in clientes:
             clientes_db.create(cliente, usuario_id, emprendimiento_id)
