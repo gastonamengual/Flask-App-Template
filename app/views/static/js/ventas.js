@@ -47,6 +47,7 @@ $(document).ready(function() {
         "scrollCollapse": true,
         "paging": false,
         "sort": false,
+        "searching": false,
     });
     $('.dataTables_length').addClass('bs-select');
 
