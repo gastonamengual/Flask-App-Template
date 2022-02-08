@@ -56,7 +56,7 @@ $(document).ready(function() {
 function hideFields(){
     $("#id_proveedor").prop('disabled', true);
     $("#id_proveedor").attr('required', false);
-    $("#id_proveedor").value('No aplica');
+    $("#id_proveedor").prop("selectedIndex", 0);
     $("#stock_actual").prop('readonly', true);
     $("#stock_actual").attr('required', false);
     $("#costo").prop('readonly', true);

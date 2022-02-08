@@ -47,8 +47,6 @@ def plot_daily_df(df):
     axes[0].set_title('Clientes')
     axes[1].set_ylabel('Monto ($)')
     axes[1].set_title('Monto Vendido')
-
-
     
     plt.tight_layout()
     plt.savefig('app/views/static/images/informes/ventas_daily.png', bbox_inches='tight')
@@ -66,8 +64,6 @@ def plot_weekly_df(df):
     axes[0].set_title('Clientes')
     axes[1].set_ylabel('Monto ($)')
     axes[1].set_title('Monto Vendido')
-    
-    
     
     plt.tight_layout()
     plt.savefig('app/views/static/images/informes/ventas_weekly.png', bbox_inches='tight')
@@ -223,8 +219,12 @@ def informe_ventas():
         plot_weekly_df(ventas_weekly)
         plot_monthly_df(ventas_monthly)
 
-        trend(ventas_df)
-        forecast(ventas_df)
+        # Mask between dates
+        mask = (ventas_df.index >= '2021-10-01') & (ventas_df.index < '2021-12-31')
+        ventas_range = ventas_df[mask]
+
+        trend(ventas_range)
+        forecast(ventas_range)
         
         return render_template("emprendimientos/informes/informe_ventas.html",
                                 global_=global_,

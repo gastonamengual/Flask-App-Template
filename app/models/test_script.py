@@ -11,7 +11,7 @@ def create_test_database():
 
         ### Usuario
         usuario = Usuario(nombre='Gastón', 
-                            email='ga@mail.com',
+                            email='gastonamengual@icloud.com',
                             password='asd')
         usuario = usuarios_db.create(usuario)
 

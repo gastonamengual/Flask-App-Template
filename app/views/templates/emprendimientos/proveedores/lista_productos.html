@@ -67,14 +67,14 @@
   <table class="table table-hover w-100" id="proveedorProductsTable">
     <thead class="info-color white-text">
       <tr>
-        <th class="text-center" style="font-size: 1.3rem;">Nombre</th>
-        <th class="text-center" style="font-size: 1.3rem;">Stock</th> 
+        <th class="text-center">Nombre</th>
+        <th class="text-center">Stock</th> 
       </tr>
     </thead>  
     {% for articulo in articulos %}
     <tr>
-      <td class="text-center" style="font-size: 1.3rem;">{{articulo.nombre}}</td>
-      <td class="text-center" style="font-size: 1.3rem;">{{articulo.stock_actual}}</td>
+      <td class="text-center">{{articulo.nombre}}</td>
+      <td class="text-center">{{articulo.stock_actual}}</td>
     </tr>
     {% endfor %}
   </table>
