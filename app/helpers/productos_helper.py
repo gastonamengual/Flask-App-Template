@@ -4,16 +4,15 @@ from ..models.models import Producto
 from ..models.exceptions import EntityExists, NoEntitiesRegistered, NoEntitiesRegistered
 
 #### FORMATEAR NOMBRE
-def formatear_nombre(producto: Producto) -> Producto:
-    producto_dict = asdict(producto)
-    producto_dict["nombre"] = producto.nombre.replace(" ", "").lower()
+def formatear_nombre(nombre: str) -> Producto:
+    return nombre.replace(" ", "").lower()
 
-    return Producto(**producto_dict)
-
-#### VALIDATE EMPRENDIMIENTO EXISTS
-def validate_exists(producto: Producto) -> None:
-    if producto is not None:
-        raise EntityExists('El producto ya está registrado', 'productos', 'producto_crear')
+#### VALIDATE PRODUCTO EXISTS
+def validate_exists(producto: Producto, productos: List[Producto]) -> None:
+    nombre_formateado = formatear_nombre(producto.nombre)
+    for producto in productos:
+        if formatear_nombre(producto.nombre) == nombre_formateado:
+            raise EntityExists('El producto ya está registrado', 'productos_views', 'producto_crear')
 
 #### VALIDATE EMPTY LIST
 def validate_empty_list(productos: List[Producto]) -> None:

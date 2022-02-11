@@ -8,14 +8,15 @@ from ..controllers import proveedores_controller, insumos_controller
 
 #### CREAR
 def create(producto: Producto, precio_producto: PrecioProducto, usuario_id: int, emprendimiento_id: int) -> Producto:
-    ### Formatear producto
-    producto_formateado = productos_helper.formatear_nombre(producto)
-    ### Validar si producto con mismo nombre ya existe
-    producto_encontrado = productos_db.get_by_name(producto_formateado, usuario_id, emprendimiento_id)
-    productos_helper.validate_exists(producto_encontrado)
+    
+    ###  Formatear nombre de producto y validar si producto con mismo nombre ya existe
+    productos = productos_db.get_all(usuario_id, emprendimiento_id)
+    productos_helper.validate_exists(producto, productos)
+    
     ### Crear producto y precio producto
     producto = productos_db.create(producto, usuario_id, emprendimiento_id)
     precio_producto = precios_producto_db.create(precio_producto, usuario_id, emprendimiento_id, producto.id_)
+    
     return producto
 
 #### EDITAR

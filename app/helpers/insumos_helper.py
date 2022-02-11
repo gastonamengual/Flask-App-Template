@@ -4,16 +4,15 @@ from ..models.models import Insumo
 from ..models.exceptions import EntityExists, NoEntitiesRegistered, NoEntitiesRegistered
 
 #### FORMATEAR NOMBRE
-def formatear_nombre(insumo: Insumo) -> Insumo:
-    insumo_dict = asdict(insumo)
-    insumo_dict["nombre"] = insumo.nombre.replace(" ", "").lower()
+def formatear_nombre(nombre: str) -> Insumo:
+    return nombre.replace(" ", "").lower()
 
-    return Insumo(**insumo_dict)
-
-#### VALIDATE EMPRENDIMIENTO EXISTS
-def validate_exists(insumo: Insumo) -> None:
-    if insumo is not None:
-        raise EntityExists('El insumo ya está registrado', 'insumos', 'insumo_crear')
+#### VALIDATE PRODUCTO EXISTS
+def validate_exists(insumo: Insumo, insumos: List[Insumo]) -> None:
+    nombre_formateado = formatear_nombre(insumo.nombre)
+    for insumo in insumos:
+        if formatear_nombre(insumo.nombre) == nombre_formateado:
+            raise EntityExists('El insumo ya está registrado', 'insumos_views', 'insumo_crear')
 
 #### VALIDATE EMPTY LIST
 def validate_empty_list(insumos: List[Insumo]) -> None:

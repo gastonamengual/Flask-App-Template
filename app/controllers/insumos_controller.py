@@ -7,9 +7,11 @@ from ..controllers import proveedores_controller
 
 #### CREAR
 def create(insumo: Insumo, usuario_id: int, emprendimiento_id: int) -> Insumo:
-    insumo_formateado = insumos_helper.formatear_nombre(insumo)
-    insumo_encontrado = insumos_db.get_by_name(insumo_formateado, usuario_id, emprendimiento_id)
-    insumos_helper.validate_exists(insumo_encontrado)
+    
+    ###  Formatear nombre de insumo y validar si insumo con mismo nombre ya existe
+    insumos = insumos_db.get_all(usuario_id, emprendimiento_id)
+    insumos_helper.validate_exists(insumo, insumos)
+
     return insumos_db.create(insumo, usuario_id, emprendimiento_id)
 
 #### EDITAR
