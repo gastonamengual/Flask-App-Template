@@ -42,6 +42,7 @@
         <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
           <a class="dropdown-item" href="{{ url_for('views.usuarios_views.editar') }}">Mi usuario</a>
           <a class="dropdown-item" href="{{ url_for('views.emprendimientos_views.emprendimientos') }}">Mis emprendimientos</a>
+          <a class="dropdown-item" target="_blank" href="{{ url_for('static', filename='help.pdf') }}">Ayuda</a>
           <a class="dropdown-item" href="{{ url_for('views.usuarios_views.login') }}">Cerrar sesión</a>
         </div>
       </li>
