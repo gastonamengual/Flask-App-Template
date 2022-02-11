@@ -1,4 +1,4 @@
-from math import floor, ceil
+from math import floor
 
 from .models import *
 from ..database import usuarios_db, emprendimiento_db, productos_db, insumos_db, proveedores_db, clientes_db, precios_producto_db, ventas_db, pedidos_db, costos_db
@@ -24,16 +24,16 @@ def create_test_database():
         emprendimiento_id = emprendimiento.id_
 
         ### Insumos
-        insumo0 = Insumo(nombre='Monómero Cherimoya', id_proveedor="1", costo=1100, stock_actual=1, stock_actual_en_medida=1*100, stock_minimo=2, unidad='mililitro', presentacion="Botella", medida_presentacion=100)
-        insumo1 = Insumo(nombre='Esmalte semipermanente Cherimoya', id_proveedor="1", costo=550, stock_actual=40, stock_actual_en_medida=40*15, stock_minimo=10, unidad='mililitro', presentacion="Frasco", medida_presentacion=15)
-        insumo2 = Insumo(nombre='Base correctiva Cherimoya', id_proveedor="0", costo=650, stock_actual=2, stock_actual_en_medida=2*15, stock_minimo=2, unidad='mililitro', presentacion="Frasco", medida_presentacion=15)
-        insumo3 = Insumo(nombre='Alcohol', id_proveedor="2", costo=100, stock_actual=1, stock_actual_en_medida=1*500, stock_minimo=2, unidad='mililitro', presentacion="Botella", medida_presentacion=500)
-        insumo4 = Insumo(nombre='Algodón', id_proveedor="2", costo=80, stock_actual=1, stock_actual_en_medida=1*140, stock_minimo=1, unidad='gramos', presentacion='Paquete', medida_presentacion=140)
-        insumo5 = Insumo(nombre='Infinite Shine', id_proveedor="0", costo=900, stock_actual=10, stock_actual_en_medida=10*15, stock_minimo=10, unidad='mililitro', presentacion='Frasco', medida_presentacion=15)
-        insumo6 = Insumo(nombre='Guantes', id_proveedor="0", costo=2000, stock_actual=1, stock_actual_en_medida=1*50, stock_minimo=1, unidad='par', presentacion='Caja', medida_presentacion=50)
-        insumo7 = Insumo(nombre='Removedor', id_proveedor="2", costo=870, stock_actual=1, stock_actual_en_medida=1*500, stock_minimo=2, unidad='mililitro', presentacion='Botella', medida_presentacion=500)
-        insumo8 = Insumo(nombre='Acrílico clear Mia Secret', id_proveedor="0", costo=4290, stock_actual=1, stock_actual_en_medida=1*118, stock_minimo=1, unidad='gramos', presentacion='Frasco', medida_presentacion=118)
-        insumo9 = Insumo(nombre='Deco', id_proveedor="1", costo=350, stock_actual=5, stock_actual_en_medida=5*10, stock_minimo=10, unidad='gramos', presentacion='Frasco', medida_presentacion=10)
+        insumo0 = Insumo(nombre='Monómero Cherimoya', id_proveedor="1", costo=1100.23, stock_actual=1, stock_actual_en_medida=1*100, stock_minimo=2, unidad='mililitro', presentacion="Botella", medida_presentacion=100)
+        insumo1 = Insumo(nombre='Esmalte semipermanente Cherimoya', id_proveedor="1", costo=550.45, stock_actual=40, stock_actual_en_medida=40*15, stock_minimo=10, unidad='mililitro', presentacion="Frasco", medida_presentacion=15)
+        insumo2 = Insumo(nombre='Base correctiva Cherimoya', id_proveedor="0", costo=650.34, stock_actual=2, stock_actual_en_medida=2*15, stock_minimo=2, unidad='mililitro', presentacion="Frasco", medida_presentacion=15)
+        insumo3 = Insumo(nombre='Alcohol', id_proveedor="2", costo=100.56, stock_actual=1, stock_actual_en_medida=1*500, stock_minimo=2, unidad='mililitro', presentacion="Botella", medida_presentacion=500)
+        insumo4 = Insumo(nombre='Algodón', id_proveedor="2", costo=80.02, stock_actual=1, stock_actual_en_medida=1*140, stock_minimo=1, unidad='gramos', presentacion='Paquete', medida_presentacion=140)
+        insumo5 = Insumo(nombre='Infinite Shine', id_proveedor="0", costo=900.24, stock_actual=10, stock_actual_en_medida=10*15, stock_minimo=10, unidad='mililitro', presentacion='Frasco', medida_presentacion=15)
+        insumo6 = Insumo(nombre='Guantes', id_proveedor="0", costo=2000.25, stock_actual=1, stock_actual_en_medida=1*50, stock_minimo=1, unidad='par', presentacion='Caja', medida_presentacion=50)
+        insumo7 = Insumo(nombre='Removedor', id_proveedor="2", costo=870.94, stock_actual=1, stock_actual_en_medida=1*500, stock_minimo=2, unidad='mililitro', presentacion='Botella', medida_presentacion=500)
+        insumo8 = Insumo(nombre='Acrílico clear Mia Secret', id_proveedor="0", costo=4290.23, stock_actual=1, stock_actual_en_medida=1*118, stock_minimo=1, unidad='gramos', presentacion='Frasco', medida_presentacion=118)
+        insumo9 = Insumo(nombre='Deco', id_proveedor="1", costo=350.43, stock_actual=5, stock_actual_en_medida=5*10, stock_minimo=10, unidad='gramos', presentacion='Frasco', medida_presentacion=10)
 
         insumos = [insumo0, insumo1, insumo2, insumo3, insumo4, insumo5, insumo6, insumo7, insumo8, insumo9]
         for insumo in insumos:
@@ -47,8 +47,8 @@ def create_test_database():
                                         LineaInsumo(id_insumo="3", cantidad=5), 
                                         LineaInsumo(id_insumo="6", cantidad=1), 
                                         LineaInsumo(id_insumo="9", cantidad=2)])
-        precio_producto100 = PrecioProducto(fecha='2021-11-09', precio=650)
-        precio_producto101 = PrecioProducto(fecha='2022-01-09', precio=700)
+        precio_producto100 = PrecioProducto(fecha='2021-11-09', precio=650.23)
+        precio_producto101 = PrecioProducto(fecha='2022-01-09', precio=700.34)
 
         # 11
         producto11 = Producto(nombre="Esmaltado semipermanente Tiffany",
@@ -57,8 +57,8 @@ def create_test_database():
                                         LineaInsumo(id_insumo="3", cantidad=5),
                                         LineaInsumo(id_insumo="6", cantidad=1),
                                         LineaInsumo(id_insumo="9", cantidad=5)])
-        precio_producto110 = PrecioProducto(fecha='2021-11-09', precio=750)
-        precio_producto111 = PrecioProducto(fecha='2022-01-09', precio=800)
+        precio_producto110 = PrecioProducto(fecha='2021-11-09', precio=750.65)
+        precio_producto111 = PrecioProducto(fecha='2022-01-09', precio=800.26)
         
         # 12
         producto12 = Producto(nombre="Uñas esculpidas en acrílico",
@@ -68,8 +68,8 @@ def create_test_database():
                                         LineaInsumo(id_insumo="6", cantidad=1), 
                                         LineaInsumo(id_insumo="8", cantidad=10),
                                         LineaInsumo(id_insumo="9", cantidad=2)])
-        precio_producto120 = PrecioProducto(fecha='2021-11-09', precio=750)
-        precio_producto121 = PrecioProducto(fecha='2022-01-09', precio=800)
+        precio_producto120 = PrecioProducto(fecha='2021-11-09', precio=750.92)
+        precio_producto121 = PrecioProducto(fecha='2022-01-09', precio=800.83)
         
         # 13
         producto13 = Producto(nombre="Belleza de pies con esmaltado",
@@ -77,8 +77,8 @@ def create_test_database():
                             lineas_insumo=[LineaInsumo(id_insumo="3", cantidad=5),
                                         LineaInsumo(id_insumo="5", cantidad=4), 
                                         LineaInsumo(id_insumo="6", cantidad=1)])
-        precio_producto130 = PrecioProducto(fecha='2021-11-09', precio=550)
-        precio_producto131 = PrecioProducto(fecha='2022-01-09', precio=600)
+        precio_producto130 = PrecioProducto(fecha='2021-11-09', precio=550.28)
+        precio_producto131 = PrecioProducto(fecha='2022-01-09', precio=600.93)
         
         # 14
         producto14 = Producto(nombre="Infinite shine",
@@ -86,24 +86,24 @@ def create_test_database():
                             lineas_insumo=[LineaInsumo(id_insumo="3", cantidad=5),
                                         LineaInsumo(id_insumo="5", cantidad=4), 
                                         LineaInsumo(id_insumo="6", cantidad=1)])
-        precio_producto140 = PrecioProducto(fecha='2021-11-09', precio=600)
-        precio_producto141 = PrecioProducto(fecha='2022-01-09', precio=650)
+        precio_producto140 = PrecioProducto(fecha='2021-11-09', precio=600.23)
+        precio_producto141 = PrecioProducto(fecha='2022-01-09', precio=650.92)
         
         # 15
         producto15 = Producto(nombre="Remoción",
                             stock_minimo = 10,
                             lineas_insumo=[LineaInsumo(id_insumo="4", cantidad=5),
                                         LineaInsumo(id_insumo="7", cantidad=10)])
-        precio_producto150 = PrecioProducto(fecha='2021-11-09', precio=350)
-        precio_producto151 = PrecioProducto(fecha='2022-01-09', precio=400)
+        precio_producto150 = PrecioProducto(fecha='2021-11-09', precio=350.02)
+        precio_producto151 = PrecioProducto(fecha='2022-01-09', precio=400.25)
         
         # 16
         producto16 = Producto(nombre="Capping con semi Chanel",
                             stock_minimo = 10,
                             lineas_insumo=[LineaInsumo(id_insumo="1", cantidad=0.5),
                                         LineaInsumo(id_insumo="2", cantidad=0.5)])
-        precio_producto160 = PrecioProducto(fecha='2021-11-09', precio=650)
-        precio_producto161 = PrecioProducto(fecha='2022-01-09', precio=730)
+        precio_producto160 = PrecioProducto(fecha='2021-11-09', precio=650.23)
+        precio_producto161 = PrecioProducto(fecha='2022-01-09', precio=730.54)
         
         productos = [producto10, producto11, producto12, producto13, producto14, producto15, producto16]
         precios_producto = [[precio_producto100, precio_producto101], 
@@ -126,7 +126,7 @@ def create_test_database():
                 costo += float(insumo.costo) * linea_insumo.cantidad / int(insumo.medida_presentacion)
 
             producto.stock_actual = floor(int(min(productos_que_rinde)))
-            producto.costo = ceil(costo)
+            producto.costo = round(costo, 2)
 
         for producto, precios in zip(productos, precios_producto):
             producto = productos_db.create(producto, usuario_id, emprendimiento_id)

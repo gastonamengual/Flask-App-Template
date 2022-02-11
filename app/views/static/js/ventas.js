@@ -52,7 +52,7 @@ $(document).ready(function() {
     $('.dataTables_length').addClass('bs-select');
 
     $('#ventasTable').DataTable({
-        "scrollY": "400px",
+        "scrollY": "500px",
         "scrollCollapse": true,
         "paging": false,
         "order": [[ 0, "desc" ]],

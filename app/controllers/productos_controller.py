@@ -1,5 +1,5 @@
 from typing import List
-from math import floor, ceil
+from math import floor
 
 from ..helpers import productos_helper
 from ..database import productos_db, precios_producto_db
@@ -91,7 +91,6 @@ def calculate_costo(producto: Producto, usuario_id: int, emprendimiento_id: int)
                 # Costo: suma de precios de insumos por la proporción de la medida del insumo según su cantidad utilizada
                 costo += float(insumo.costo) * linea_insumo['cantidad'] / int(insumo.medida_presentacion)
     
-    ### Stock actual = mínimo de los productos que rinde
-    producto.costo = ceil(costo)
+    producto.costo = round(costo, 2)
 
     return producto

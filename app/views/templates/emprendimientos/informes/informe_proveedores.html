@@ -78,7 +78,7 @@
       <div class="col-3">
           <div class="card">
               <div class="card-body">
-                  <h4 class="card-title">%{{proveedores_tasa_cancelacion|round(2, 'floor')}}</h4>
+                  <h4 class="card-title">{{ "{:,.2f}".format(proveedores_tasa_cancelacion).replace(',','~').replace('.',',').replace('~','.') }}%</h4>
                   <p class="card-text">Tasa de cancelación de pedidos</p>
               </div>
           </div>
@@ -96,7 +96,7 @@
       <div class="col-3">
           <div class="card">
               <div class="card-body">
-                  <h4 class="card-title">{{porcentaje_productos|round(2, 'floor')}}%</h4>
+                  <h4 class="card-title">{{ "{:,.2f}".format(porcentaje_productos).replace(',','~').replace('.',',').replace('~','.') }}%</h4>
                   <p class="card-text">sobre el total de productos</p>
               </div>
           </div>

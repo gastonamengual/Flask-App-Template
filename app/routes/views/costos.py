@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from ...controllers import costos_controller, emprendimientos_controller
 from ...models.models import Costo, Emprendimiento
@@ -60,6 +62,10 @@ def lista_pagos(costo_id):
     ### Get costo
     costo_ = Costo(id_=costo_id)
     costo = costos_controller.get_by_id(costo_, usuario_id, emprendimiento_id)
+    
+    for pago in costo.pagos:
+        pago['fecha'] = datetime.strptime(pago['fecha'], '%Y-%m-%d').strftime('%d/%m/%Y')
+
 
     return render_template("emprendimientos/costos/lista_pagos.html",
                            costo=costo,

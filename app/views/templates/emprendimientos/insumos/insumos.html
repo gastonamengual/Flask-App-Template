@@ -78,7 +78,7 @@
       <td class="text-center">{{insumo.nombre}}</td>
       <td class="text-center">{{proveedor.nombre}}</td> 
       <td class="text-center">{{insumo.stock_actual}}</td>
-      <td class="text-center">${{insumo.costo}}</td>
+      <td class="text-center">${{ "{:,}".format(insumo.costo).replace(',','~').replace('.',',').replace('~','.') }}</td>
       <td class="text-center">{{insumo.unidad}}</td>
       <td class="text-center">{{insumo.presentacion}}</td>
       <td class="text-center">{{insumo.medida_presentacion}}</td>

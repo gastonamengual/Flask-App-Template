@@ -86,7 +86,7 @@
       <div class="col-3">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ "${:,.0f}".format(monto_comprado) }}</h4>
+                <h4 class="card-title">${{ "{:,}".format(monto_comprado).replace(',','~').replace('.',',').replace('~','.') }}</h4>
                 <p class="card-text">Monto comprado</p>
             </div>
         </div>
@@ -104,7 +104,7 @@
       <div class="col-3">
           <div class="card">
               <div class="card-body">
-                  <h4 class="card-title">{{porcentaje_ventas|round(2, 'floor')}}%</h4>
+                  <h4 class="card-title">{{ "{:,.2f}".format(porcentaje_ventas).replace(',','~').replace('.',',').replace('~','.') }}%</h4>
                   <p class="card-text">Porcentaje sobre ventas totales</p>
               </div>
           </div>

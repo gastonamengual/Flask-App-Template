@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+from datetime import datetime
 
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from ...controllers import pedidos_controller, proveedores_controller, productos_controller, insumos_controller, emprendimientos_controller
 from ...models.exceptions import NoEntitiesRegistered
 from ...models.models import Emprendimiento, Proveedor
@@ -40,6 +41,10 @@ def lista_pedidos(proveedor_id):
 
     ### Get nombre of articulos in lineas pedido
     for pedido in pedidos:
+        pedido.fecha_confeccion = datetime.strptime(pedido.fecha_confeccion, '%Y-%m-%d').strftime('%d/%m/%Y')
+        if pedido.fecha_recepcion:
+            pedido.fecha_recepcion = datetime.strptime(pedido.fecha_recepcion, '%Y-%m-%d').strftime('%d/%m/%Y')
+        
         for linea_pedido in pedido.lineas_pedido:
             for articulo in articulos:
                 if linea_pedido['id_articulo'] == articulo.id_:

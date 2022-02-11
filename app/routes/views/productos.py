@@ -140,6 +140,6 @@ def calculate_fields():
     producto = Producto(lineas_insumo=lineas_insumo)
     producto = productos_controller.calculate_stock(producto, usuario_id, emprendimiento_id)
     producto = productos_controller.calculate_costo(producto, usuario_id, emprendimiento_id)
-    precio = producto.costo * emprendimiento.margen_ganancia
+    precio = round(producto.costo * emprendimiento.margen_ganancia, 2)
 
     return jsonify(producto.stock_actual, producto.costo, precio)

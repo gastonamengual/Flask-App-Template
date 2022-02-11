@@ -76,14 +76,13 @@
         <td class="text-center">{{producto.nombre}}</td>
         <td class="text-center">{{proveedor.nombre or "No tiene"}}</td> 
         <td class="text-center">{{producto.stock_actual}}</td>
-        <td class="text-center">${{producto.costo}}</td>
-        <td class="text-center">${{precio.precio}}</td>
+        <td class="text-center">${{ "{:,}".format(producto.costo).replace(',','~').replace('.',',').replace('~','.') }}</td>
+        <td class="text-center">${{ "{:,}".format(precio.precio).replace(',','~').replace('.',',').replace('~','.') }}</td>
         <td class="text-center">{% if producto.lineas_insumo %}<p id="detalle{{producto.id_}}" style="cursor: pointer;">Ver lista de insumos</p>{% endif %}</td>
         <td class="text-center"><a class="btn btn-success" style="width: 3vw; height: 5vh; padding: 1.2vh; text-align: center;" href="{{ url_for('views.productos_views.producto_editar', id = producto.id_) }}"><i class="fas fa-edit"></i></a></td>
         <td class="text-center"><a class="btn btn-danger" style="width: 3vw; height: 5vh; padding: 1.2vh; text-align: center;" id="borrar-producto{{producto.id_}}"><i class="far fa-trash-alt"></i></a></td>
       </tr>
       {% endfor %}
-
     </table>
     
     <div class="row h-25 d-flex align-items-center flex-column">

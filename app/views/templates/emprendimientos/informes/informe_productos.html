@@ -84,7 +84,7 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">{{rendimiento|round(2, 'floor')}}</h4>
+                    <h4 class="card-title">{{ "{:,.2f}".format(rendimiento).replace(',','~').replace('.',',').replace('~','.') }}</h4>
                     <p class="card-text">Rendimiento (ganancia sobre costo)</p>
                 </div>
             </div>

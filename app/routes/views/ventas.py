@@ -113,7 +113,7 @@ def lista_ventas():
     
     clientes = []
     for venta in ventas:
-        # venta.fecha = datetime.strptime(venta.fecha, '%Y-%m-%d').strftime('%d/%m/%Y')
+        venta.fecha = datetime.strptime(venta.fecha, '%Y-%m-%d').strftime('%d/%m/%Y')
         for cliente in clientes_:
             if cliente.dni == venta.dni_cliente:
                 clientes.append(cliente)
