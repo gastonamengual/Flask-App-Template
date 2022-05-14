@@ -4,7 +4,7 @@ $(document).ready(function() {
     $("#crear-cliente").click(function(){
         $("[name='_method']").val("POST")
         $("[name='dni']").val('')
-        $("[name='nombre']").val('')
+        $("[name='name']").val('')
         $("[name='telefono']").val('')
         $("#finalizar").text("Crear cliente")
         $("#modal-cliente-form").modal();
@@ -16,7 +16,7 @@ $(document).ready(function() {
         $("[name='_method']").val("PUT")
         $("[name='id_']").val(cliente.id_)
         $("[name='dni']").val(cliente.dni)
-        $("[name='nombre']").val(cliente.nombre)
+        $("[name='name']").val(cliente.name)
         $("[name='telefono']").val(cliente.telefono)
         $("#finalizar").text("Editar cliente")
         $("#modal-cliente-form").modal();
