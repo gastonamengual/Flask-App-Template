@@ -1,9 +1,13 @@
 from dataclasses import dataclass
 
 
-@dataclass()
-class User:
+@dataclass
+class Entity:
     id_: str = ""
+
+
+@dataclass()
+class User(Entity):
     name: str = ""
     email: str = ""
 

@@ -15,5 +15,5 @@ app.register_blueprint(errors_scope, url_prefix="/")
 app.register_blueprint(api_scope, url_prefix="/api")
 app.register_blueprint(views_scope, url_prefix="/")
 
-from .models import test_script
-test_script.create_test_database()
+from .database import initialize_db
+initialize_db.create_test_database()
