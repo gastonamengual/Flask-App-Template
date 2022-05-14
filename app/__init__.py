@@ -1,4 +1,5 @@
 from flask import Flask, request
+
 from config import Config
 
 from .routes import api_scope, errors_scope, views_scope
@@ -16,16 +17,3 @@ app.register_blueprint(views_scope, url_prefix="/")
 
 from .models import test_script
 test_script.create_test_database()
-
-from .routes.views.usuarios import mail
-
-mail_settings = {
-    "MAIL_SERVER": 'smtp.gmail.com',
-    "MAIL_PORT": 465,
-    "MAIL_USE_TLS": False,
-    "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": 'emprendeapp2022@gmail.com',
-    "MAIL_PASSWORD": 'EmprendeApp123'
-}
-app.config.update(mail_settings)
-mail.init_app(app)
