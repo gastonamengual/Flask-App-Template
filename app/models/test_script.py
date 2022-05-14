@@ -11,8 +11,8 @@ def create_test_database():
 
         ### Clientes
         users = [
-            User(id_="1", name="John", email="john@mail.com", password="123"),
-            User(id_="2", name="Elizabeth", email="elizabeth@mail.com", password="123"),
+            User(id_="1", name="John", email="john@mail.com"),
+            User(id_="2", name="Elizabeth", email="elizabeth@mail.com"),
         ]
 
         for user in users:

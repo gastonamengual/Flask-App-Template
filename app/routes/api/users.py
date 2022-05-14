@@ -15,7 +15,6 @@ def users_dispatcher():
         id_=None,
         name=data["name"],
         email=data["email"],
-        password=data["password"],
     )
 
     if method == "POST":

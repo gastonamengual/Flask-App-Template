@@ -1,3 +1,3 @@
-# Comienza Tu Emprendimiento
+# Flask-App-Template
 
-Code for Proyecto Final App.
+Code for a Flask App.
